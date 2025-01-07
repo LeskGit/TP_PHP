@@ -5,7 +5,7 @@ spl_autoload_register(function ($className) {
 
     $prefix = 'quiz/classes/';
 
-    $file = $className . '.php';
+    $file = $prefix . $className . '.php';
 
     if (file_exists($file)) {
         require $file;
