@@ -47,4 +47,13 @@ class Quiz {
         $query = $pdo->query("SELECT * FROM QUIZ");
         return $query->fetchAll();
     }
+
+    public static function selectQuestions($pdo, $id){
+        // selection de toutes les questions d'un quiz
+        $query = $pdo->prepare("SELECT * FROM QUESTION WHERE quiz_id = :id");
+        $query->execute([
+            'id' => $id
+        ]);
+        return $query->fetchAll();
+    }
 }
