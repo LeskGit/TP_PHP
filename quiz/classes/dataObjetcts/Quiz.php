@@ -4,7 +4,9 @@
 namespace dataObjects;
 
 class Quiz {
+
     public static function insert($pdo, $id, $nom, $description){
+        // insertion d'un quiz
         $query = $pdo->prepare("INSERT INTO QUIZ (id, nom, description) VALUES (:id, :nom, :description)");
         $query->execute([
             'id' => $id,
@@ -14,6 +16,7 @@ class Quiz {
     }
 
     public static function update($pdo, $id, $nom, $description){
+        // mise à jour d'un quiz
         $query = $pdo->prepare("UPDATE QUIZ SET nom = :nom, description = :description WHERE id = :id");
         $query->execute([
             'id' => $id,
@@ -23,6 +26,7 @@ class Quiz {
     }
 
     public static function delete($pdo, $id){
+        // suppression d'un quiz
         $query = $pdo->prepare("DELETE FROM QUIZ WHERE id = :id");
         $query->execute([
             'id' => $id
@@ -30,6 +34,7 @@ class Quiz {
     }
 
     public static function select($pdo, $id){
+        // selection d'un quiz
         $query = $pdo->prepare("SELECT * FROM QUIZ WHERE id = :id");
         $query->execute([
             'id' => $id
@@ -38,6 +43,7 @@ class Quiz {
     }
 
     public static function selectAll($pdo){
+        // selection de tous les quiz
         $query = $pdo->query("SELECT * FROM QUIZ");
         return $query->fetchAll();
     }

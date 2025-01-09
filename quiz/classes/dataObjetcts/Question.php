@@ -4,6 +4,7 @@ namespace dataObjects;
 
 class Questtion {
     public static function insert($pdo, $id, $question, $type, $score, $quiz_id){
+        // inssertion d'une question
         $query = $pdo->prepare("INSERT INTO QUESTION (id, question, type, score, quiz_id) VALUES (:id, :question, :type, :score, :quiz_id)");
         $query->execute([
             'id' => $id,
@@ -15,6 +16,7 @@ class Questtion {
     }
 
     public static function insertAll($pdo, $questions){
+        // insertion de plusieurs questions
         $query = $pdo->prepare("INSERT INTO QUESTION (id, question, type, score, quiz_id) VALUES (:id, :question, :type, :score, :quiz_id)");
         foreach($questions as $question){
             $query->execute([
@@ -28,6 +30,7 @@ class Questtion {
     }
 
     public static function update($pdo, $id, $question, $type, $score, $quiz_id){
+        // mise à jour d'une question
         $query = $pdo->prepare("UPDATE QUESTION SET question = :question, type = :type, score = :score, quiz_id = :quiz_id WHERE id = :id");
         $query->execute([
             'id' => $id,
@@ -39,6 +42,7 @@ class Questtion {
     }
 
     public static function delete($pdo, $id){
+        // suppression d'une question
         $query = $pdo->prepare("DELETE FROM QUESTION WHERE id = :id");
         $query->execute([
             'id' => $id
@@ -46,6 +50,7 @@ class Questtion {
     }
 
     public static function select($pdo, $id){
+        // selection d'une question
         $query = $pdo->prepare("SELECT * FROM QUESTION WHERE id = :id");
         $query->execute([
             'id' => $id
@@ -54,6 +59,7 @@ class Questtion {
     }
 
     public static function selectAll($pdo){
+        // selection de toutes les questions
         $query = $pdo->query("SELECT * FROM QUESTION");
         return $query->fetchAll();
     }
@@ -77,6 +83,7 @@ class Questtion {
     }
 
     public static function insertResponse($pdo, $id, $reponse, $isCorrect, $question_id){
+        // insertion d'une réponse
         $query = $pdo->prepare("INSERT INTO REPONSE (id, reponse, isCorrect, question_id) VALUES (:id, :reponse, :isCorrect, :question_id)");
         $query->execute([
             'id' => $id,
