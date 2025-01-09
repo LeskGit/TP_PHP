@@ -3,7 +3,7 @@
 spl_autoload_register(function ($className) {
     $className = str_replace('\\', '/', $className);
 
-    $prefix = 'quiz/classes/';
+    $prefix = __DIR__ . "../classes/";
 
     $file = $prefix . $className . '.php';
 
