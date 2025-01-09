@@ -26,7 +26,7 @@ namespace tools;
                 $html .= self::checkboxHandler($question);
                 break;
         }
-        return $html;
+        echo $html;
     }
 
     public static function textHandler(array $question): string {
