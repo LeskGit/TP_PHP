@@ -7,8 +7,6 @@ spl_autoload_register(function ($className) {
 
     $file = $prefix . $className . '.php';
 
-    var_dump($file);
-
     if (file_exists($file)) {
         require $file;
     }
