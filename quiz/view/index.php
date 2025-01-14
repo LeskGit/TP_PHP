@@ -14,7 +14,7 @@ include_once __DIR__ . "/../provider/provider.php";
     <p>Voici la liste des quiz disponibles:</p>
     <ul>
         <?php
-        $quizs = Quiz::getAll($pdo);
+        $quizs = dataObjects\Quiz::getAll($pdo);
         foreach($quizs as $quiz){
             echo "<li><a href='quiz.php?id=" . $quiz['id'] . "'>" . $quiz['nom'] . "</a></li>";
         }
