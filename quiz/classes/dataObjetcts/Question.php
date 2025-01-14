@@ -58,6 +58,15 @@ class Questtion {
         return $query->fetch();
     }
 
+    public static function selectQuestionByQuiz($pdo, $quiz_id){
+        // selection d'une question
+        $query = $pdo->prepare("SELECT * FROM QUESTION WHERE quiz_id = :quiz_id");
+        $query->execute([
+            'quiz_id' => $quiz_id
+        ]);
+        return $query->fetch();
+    }
+
     public static function selectAll($pdo){
         // selection de toutes les questions
         $query = $pdo->query("SELECT * FROM QUESTION");
