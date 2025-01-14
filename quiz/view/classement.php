@@ -10,6 +10,9 @@ include_once __DIR__ . "/../provider/provider.php";
     <title>Classement</title>
 </head>
 <body>
+    <div>
+        <a href="index.php">lien vers l'accueuil</a>
+    </div>
     <div id="classement">
         <h1>Classement</h1>
         <table>
