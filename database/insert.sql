@@ -6,3 +6,9 @@ INSERT INTO QUESTION (id, question, type, score, quiz_id) VALUES (1, 'Question 1
 
 -- insertion des réponses
 INSERT INTO REPONSE (id, reponse, correct, question_id) VALUES (1, 'xiaopang', true, 1);
+
+-- insertion des participations
+INSERT INTO PARTICIPATION (id, pseudo, score, quiz_id) VALUES
+    (1, "le boss", 200, 1),
+    (2, "Axel", 100, 1),
+    (3, "CocoCaca", 50, 1);

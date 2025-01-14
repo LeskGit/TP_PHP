@@ -11,10 +11,13 @@ include_once __DIR__ . "/../provider/provider.php";
 </head>
 <body>
     <h1>Quiz</h1>
+    <div>
+        <a href="classement.php">lien vers le classement</a>
+    </div>
     <p>Voici la liste des quiz disponibles:</p>
     <ul>
         <?php
-        $quizs = dataObjects\Quiz::getAll($pdo);
+        $quizs = dataObjects\Quiz::selectAll($pdo);
         foreach($quizs as $quiz){
             echo "<li><a href='quiz.php?id=" . $quiz['id'] . "'>" . $quiz['nom'] . "</a></li>";
         }
