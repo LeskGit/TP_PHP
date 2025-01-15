@@ -2,7 +2,7 @@
 // cette classe gère les appèles de données sur la table Question et Reponse
 namespace dataObjects;
 
-class Questtion {
+class Question {
     public static function insert($pdo, $id, $question, $type, $score, $quiz_id){
         // inssertion d'une question
         $query = $pdo->prepare("INSERT INTO QUESTION (id, question, type, score, quiz_id) VALUES (:id, :question, :type, :score, :quiz_id)");
@@ -64,7 +64,7 @@ class Questtion {
         $query->execute([
             'quiz_id' => $quiz_id
         ]);
-        return $query->fetch();
+        return $query->fetchAll();
     }
 
     public static function selectAll($pdo){
@@ -77,18 +77,18 @@ class Questtion {
         // récupération des réponses liés à la question
         $query = $pdo->prepare("SELECT * FROM REPONSE WHERE question_id = :question_id");
         $query->execute([
-            'questionId' => $question_id
+            'question_id' => $question_id
         ]);
-        return $query->fetch();
+        return $query->fetchAll();
     }
 
-    public static function selectCorrectRespones($pdo, $question_id){
+    public static function selectCorrectRespones($pdo, $id){
         // récupération des réponses correctes liés à la question
-        $query = $pdo->prepare("SELECT * FROM REPONSE WHERE question_id = :question_id AND correct = 1");
+        $query = $pdo->prepare("SELECT * FROM REPONSE WHERE id = :id AND correct = 1");
         $query->execute([
-            'questionId' => $question_id
+            'id' => $id
         ]);
-        return $query->fetch();
+        return $query->fetchAll();
     }
 
     public static function insertResponse($pdo, $id, $reponse, $isCorrect, $question_id){
