@@ -1,21 +1,19 @@
 <?php
 namespace view;
 
-use classes\Formulaire;
+use \handler\QuizHandler;
 
-include_once __DIR__ . "/../provider/provider.php";
-include_once __DIR__ . "/../classes/Formulaire.php";
+include_once __DIR__ . "../../provider/provider.php";
+include_once __DIR__ . "/../classes/handler/QuizHandler.php";
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Simple avec Bootstrap</title>
+    <title>Page Quiz</title>
     <!-- Lien vers le CDN de Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -23,7 +21,7 @@ include_once __DIR__ . "/../classes/Formulaire.php";
 
 <!-- En-tête -->
 <header class="bg-dark text-white text-center py-3">
-    <h1>Bienvenue sur ma page</h1>
+    <h1>Bienvenue sur ma page de Quiz</h1>
 </header>
 
 <!-- Navigation -->
@@ -52,16 +50,22 @@ include_once __DIR__ . "/../classes/Formulaire.php";
 <!-- Section principale -->
 <main class="container mt-4">
     <?php
-    // Vérifier si l'ID est passé dans l'URL
-    if (isset($_GET['id'])) {
-        $id = $_GET['id'];  // Récupère l'ID du quiz depuis l'URL
 
-        Formulaire::afficheFormulaire($pdo, $id);
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Si la méthode est POST, afficher les réponses
+            QuizHandler::afficheReponses($pdo, $id);
+        } else {
+            // Si la méthode est GET, afficher le formulaire
+            QuizHandler::afficheFormulaire($pdo, $id);
+        }
     } else {
         echo "<p>Aucun quiz sélectionné.</p>";
     }
     ?>
-
 </main>
 
 <!-- Pied de page -->

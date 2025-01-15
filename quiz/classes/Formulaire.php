@@ -1,7 +1,7 @@
 <?php
 namespace classes;
-use dataObjects\Question;
-use handler\QuestionHandler;
+use \dataObjects\Question;
+use \handler\QuestionHandler;
 
 include_once __DIR__ . "/../classes/dataObjects/Question.php";
 include_once __DIR__ . "/../classes/handler/QuestionHandler.php";
@@ -20,6 +20,9 @@ class Formulaire {
         $formulaire = QuestionHandler::render($pdo, $questions);
 
         $html .= $formulaire;
+
+
+
         echo $html;
     }
 }
