@@ -2,7 +2,7 @@
 // cette classe gère les appèles de données sur la table Participation
 namespace dataObjects;
 
-class Paricipation{
+class Participation{
 
     public static function insert($pdo, $id, $pseudo, $score, $quiz_id){
         // inssertion d'une participation
@@ -46,6 +46,40 @@ class Paricipation{
     public static function selectAll($pdo){
         // selection de toutes les participations
         $query = $pdo->query("SELECT * FROM PARTICIPATION");
+        return $query->fetchAll();
+    }
+
+    public static function selectByQuiz($pdo, $quiz_id){
+        // selection de toutes les participations pour un quiz donné
+        $query = $pdo->prepare("SELECT * FROM PARTICIPATION WHERE quiz_id = :quiz_id ORDER BY score DESC");
+        $query->execute([
+            'quiz_id' => $quiz_id
+        ]);
+        return $query->fetchAll();
+    }
+
+    public static function selectByPseudo($pdo, $pseudo){
+        // selection de toutes les participations pour un pseudo donné
+        $query = $pdo->prepare("SELECT * FROM PARTICIPATION WHERE pseudo = :pseudo ORDER BY score DESC");
+        $query->execute([
+            'pseudo' => $pseudo
+        ]);
+        return $query->fetchAll();
+    }
+
+    public static function selectByPseudoAndQuiz($pdo, $pseudo, $quiz_id){
+        // selection de toutes les participations pour un pseudo et un quiz donné
+        $query = $pdo->prepare("SELECT * FROM PARTICIPATION WHERE pseudo = :pseudo AND quiz_id = :quiz_id ORDER BY score DESC");
+        $query->execute([
+            'pseudo' => $pseudo,
+            'quiz_id' => $quiz_id
+        ]);
+        return $query->fetchAll();
+    }
+
+    public static function selectWithQuizOrdered($pdo){
+        // selection de toutes les participations avec le quiz associé
+        $query = $pdo->query("SELECT pseudo, score, nom as nomQuiz FROM PARTICIPATION LEFT JOIN QUIZ ORDER BY score DESC");
         return $query->fetchAll();
     }
 }
