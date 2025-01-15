@@ -71,6 +71,7 @@ class QuizFactory {
         echo "<input type='hidden' name='type' value='" . $_POST['type'] . "'>";
         echo "<input type='hidden' name='question_id' value='" . $_POST['question_id'] . "'>";
         echo "<input type='hidden' name='state' value='saveRep'>";
+        echo "<input type='submit' value='valider'>";
         echo "</form>";
     }
 
@@ -91,7 +92,6 @@ class QuizFactory {
     private function renderCreateResponseFormText(){
         echo "<label for='response'>Réponse:</label>";
         echo "<input type='text' name='response' id='response'>";
-        echo "<input type='submit' value='valider'>";
     }
 
     private function saveTextReponse(){
@@ -103,9 +103,12 @@ class QuizFactory {
 
     private function renderCreateResponseFormRadio(){
         for ($i = 0; $i < 4; $i++){
+            echo "<div>";
             echo "<label for='response" . $i . "'>Réponse " . $i . ":</label>";
             echo "<input type='text' name='response" . $i . "' id='response" . $i . "'>";
+            echo "<label for='correct" . $i . "'>Correct:</label>";
             echo "<input type='radio' name='correct' value='" . $i . "'>";
+            echo "</div>";
         }
     }
 
@@ -121,9 +124,12 @@ class QuizFactory {
 
     private function renderCreateResponseFormCheckbox(){
         for ($i = 0; $i < 4; $i++){
+            echo "<div>";
             echo "<label for='response" . $i . "'>Réponse " . $i . ":</label>";
             echo "<input type='text' name='response" . $i . "' id='response" . $i . "'>";
+            echo "<label for='correct" . $i . "'>Correct:</label>";
             echo "<input type='checkbox' name='correct" . $i . "' value='" . $i . "'>";
+            echo "<div/>";
         }
     }
 
