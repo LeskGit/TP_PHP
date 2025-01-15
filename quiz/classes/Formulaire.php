@@ -1,6 +1,11 @@
 <?php
+namespace classes;
 use dataObjects\Question;
 use handler\QuestionHandler;
+
+include_once __DIR__ . "/../classes/dataObjects/Question.php";
+include_once __DIR__ . "/../classes/handler/QuestionHandler.php";
+
 
 class Formulaire {
 
@@ -8,8 +13,11 @@ class Formulaire {
         $html = '';
         $html .= '<h1>Formulaire</h1>';
         $questions = Question::selectQuestionByQuiz($pdo, $idQuiz);
+        foreach ($questions as $question) {
+            echo htmlspecialchars($question['question']);
+        }
 
-        $formulaire = QuestionHandler::render($questions);
+        $formulaire = QuestionHandler::render($pdo, $questions);
 
         $html .= $formulaire;
         echo $html;

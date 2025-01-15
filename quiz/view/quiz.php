@@ -1,10 +1,13 @@
 <?php
-    namespace classes;
-    use Formulaire;
-    include_once __DIR__ . "/../provider/provider.php";
+namespace view;
 
+use classes\Formulaire;
 
-    ?>
+include_once __DIR__ . "/../provider/provider.php";
+include_once __DIR__ . "/../classes/Formulaire.php";
+
+?>
+
 
 
 <!DOCTYPE html>

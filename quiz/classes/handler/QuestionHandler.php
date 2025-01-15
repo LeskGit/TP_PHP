@@ -7,7 +7,7 @@ use dataObjects\Question;
  * Classe permettant de gérer tous les types de questions
  */
 
- class QuestionHandler {
+class QuestionHandler {
 
     /**
      * Génère le HTML de la question
@@ -15,56 +15,62 @@ use dataObjects\Question;
      * @param array $question La question à afficher
      * @return string Le code HTML de la question
      */
-    public static function render(array $questions) {
+    public static function render($pdo, array $questions) {
         $html = '';
-        $html .= '<form action="/reponse.php">';
+        $html .= '<form action="/reponse.php" class="form-container">';
         foreach ($questions as $question) {
             switch ($question['type']) {
                 case 'text':
-                    $html .= self::textHandler($question);
+                    $html .= self::textHandler($pdo, $question);
                     break;
                 case 'radio':
-                    $html .= self::radioHandler($question);
+                    $html .= self::radioHandler($pdo, $question);
                     break;
                 case 'checkbox':
-                    $html .= self::checkboxHandler($question);
+                    $html .= self::checkboxHandler($pdo, $question);
                     break;
             }
         }
-        $html .= '<button type="submit" class="btn btn-default">Submit</button>';
+        $html .= '<div class="form-group text-center">';
+        $html .= '<button type="submit" class="btn btn-primary btn-lg">Submit</button>';
+        $html .= '</div>';
         $html .= '</form>';
         return $html;
     }
 
-    public static function textHandler($question): string {
-        $html = '<div class="form-group">';
-        $html .= '<h2>' . htmlspecialchars($question['question']) . '</h2>';
-        $html .= '<input type="text" name="question_' . $question['id'] . '">';
+    public static function textHandler($pdo, $question): string {
+        $html = '<div class="form-group mb-4">';
+        $html .= '<label for="question_' . $question['id'] . '" class="form-label"><h5>' . htmlspecialchars($question['question']) . '</h5></label>';
+        $html .= '<input type="text" name="question_' . $question['id'] . '" id="question_' . $question['id'] . '" class="form-control" placeholder="Votre réponse">';
         $html .= '</div>';
         return $html;
     }
 
-    public static function radioHandler($question): string {
-        $choices = Question::selectResponses($question['id']);
-        $html = '<div class="form-check">';
-        $html .= '<h2>' . htmlspecialchars($question['question']) . '</h2>';
+    public static function radioHandler($pdo, $question): string {
+        $choices = Question::selectResponses($pdo, $question['id']);
+        $html = '<div class="form-group mb-4">';
+        $html .= '<h5>' . htmlspecialchars($question['question']) . '</h5>';
         foreach ($choices as $choice) {
-            $html .= '<label class="form-check-label"><input class="form-check-input" type="radio" name="question_' . $question['id'] . '" value="' . $choice['id'] . '"> ' . htmlspecialchars($choice['reponse']) . '</label>';
+            $html .= '<div class="form-check">';
+            $html .= '<input class="form-check-input" type="radio" name="question_' . $question['id'] . '" id="choice_' . $choice['id'] . '" value="' . $choice['id'] . '">';
+            $html .= '<label class="form-check-label" for="choice_' . $choice['id'] . '">' . htmlspecialchars($choice['reponse']) . '</label>';
+            $html .= '</div>';
         }
         $html .= '</div>';
         return $html;
     }
 
-    public static function checkboxHandler($question): string {
-        $choices = Question::selectResponses($question['id']);
-        $html = '<div class="form-check">';
-        $html .= '<h2>' . htmlspecialchars($question['question']) . '</h2>';
+    public static function checkboxHandler($pdo, $question): string {
+        $choices = Question::selectResponses($pdo, $question['id']);
+        $html = '<div class="form-group mb-4">';
+        $html .= '<h5>' . htmlspecialchars($question['question']) . '</h5>';
         foreach ($choices as $choice) {
-            $html .= '<label class="form-check-label"><input type="checkbox" class="form-check-input" name="question_' . $question['id'] . '[]" value="' . $choice['id'] . '"> ' . htmlspecialchars($choice['reponse']) . '</label>';
+            $html .= '<div class="form-check">';
+            $html .= '<input type="checkbox" class="form-check-input" name="question_' . $question['id'] . '[]" id="choice_' . $choice['id'] . '" value="' . $choice['id'] . '">';
+            $html .= '<label class="form-check-label" for="choice_' . $choice['id'] . '">' . htmlspecialchars($choice['reponse']) . '</label>';
+            $html .= '</div>';
         }
         $html .= '</div>';
         return $html;
     }
-
-    
- }
+}
