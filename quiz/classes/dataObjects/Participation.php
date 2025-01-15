@@ -2,7 +2,7 @@
 // cette classe gère les appèles de données sur la table Participation
 namespace dataObjects;
 
-class Paricipation{
+class Participation{
 
     public static function insert($pdo, $id, $pseudo, $score, $quiz_id){
         // inssertion d'une participation

@@ -2,7 +2,7 @@
 // cette classe gère les appèles de données sur la table Question et Reponse
 namespace dataObjects;
 
-class Questtion {
+class Question {
     public static function insert($pdo, $id, $question, $type, $score, $quiz_id){
         // inssertion d'une question
         $query = $pdo->prepare("INSERT INTO QUESTION (id, question, type, score, quiz_id) VALUES (:id, :question, :type, :score, :quiz_id)");
