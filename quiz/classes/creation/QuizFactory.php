@@ -1,6 +1,6 @@
 <?php
 namespace creation;
-
+// cette classe gère la création de quiz
 class QuizFactory {
     private $pdo;
 
@@ -8,6 +8,9 @@ class QuizFactory {
         $this->pdo = $pdo;
     }
 
+    /**
+     * construction d'un formulaire de création de quiz
+     */
     public function createQuiz(){
         if (isset($_POST['nom']) && isset($_POST['description'])){
             \dataObjects\Quiz::insert($this->pdo, $_POST['nom'], $_POST['description']);
@@ -17,6 +20,9 @@ class QuizFactory {
         }
     }
 
+    /**
+     * rendu du formulaire de création de quiz
+     */
     private function renderCreateQuizForm(){
         echo "<form method='post'>";
         echo "<div>";

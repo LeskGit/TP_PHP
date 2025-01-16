@@ -27,22 +27,15 @@ include_once __DIR__ . "/../classes/handler/QuizHandler.php";
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Mon Site</a>
+        <a class="navbar-brand" href="index.php">Mon Site</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Accueil</a>
+                    <a class="nav-link active" href="index.php">Accueil</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">À propos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-            </ul>
         </div>
     </div>
 </nav>
@@ -74,7 +67,7 @@ include_once __DIR__ . "/../classes/handler/QuizHandler.php";
 
 <!-- Pied de page -->
 <footer class="bg-dark text-white text-center py-3 mt-4">
-    <p>&copy; 2025 Mon Site Web</p>
+    <p>&copy; 2025 mon quiz</p>
 </footer>
 
 <!-- Lien vers le script Bootstrap JS -->

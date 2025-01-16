@@ -79,7 +79,7 @@ class Participation{
 
     public static function selectWithQuizOrdered($pdo){
         // selection de toutes les participations avec le quiz associé
-        $query = $pdo->query("SELECT pseudo, score, nom as nomQuiz FROM PARTICIPATION LEFT JOIN QUIZ ORDER BY score DESC");
+        $query = $pdo->query("SELECT pseudo, score, nom as nomQuiz FROM PARTICIPATION JOIN QUIZ ON PARTICIPATION.quiz_id = QUIZ.id ORDER BY score DESC");
         return $query->fetchAll();
     }
 }
