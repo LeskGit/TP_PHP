@@ -85,14 +85,25 @@ class Question {
         return $query->fetchAll();
     }
 
-    public static function selectCorrectRespones($pdo, $id){
-        // récupération des réponses correctes liés à la question
-        $query = $pdo->prepare("SELECT * FROM REPONSE WHERE id = :id AND correct = 1");
+    public static function selectResponseById($pdo, $question_id, $id){
+        // récupération des réponses liés à la question
+        $query = $pdo->prepare("SELECT * FROM REPONSE WHERE question_id = :question_id AND id = :id");
         $query->execute([
+            'question_id' => $question_id,
             'id' => $id
         ]);
         return $query->fetchAll();
     }
+
+    public static function selectCorrectRespones($pdo, $question_id){
+        // récupération des réponses correctes liés à la question
+        $query = $pdo->prepare("SELECT * FROM REPONSE WHERE question_id = :question_id AND correct = 1");
+        $query->execute([
+            'question_id' => $question_id
+        ]);
+        return $query->fetchAll();
+    }
+
 
     public static function insertResponse($pdo, $reponse, $isCorrect, $question_id){
         // insertion d'une réponse
