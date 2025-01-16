@@ -30,6 +30,7 @@ class QuestionFactory {
                 break;
             case 'saveRep':
                 $this->saveResponse();
+                echo "<a href='index.php'>Retour à l'accueil</a>";
                 break;
         }
     }

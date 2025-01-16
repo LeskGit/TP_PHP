@@ -15,6 +15,7 @@ class QuizFactory {
         if (isset($_POST['nom']) && isset($_POST['description'])){
             \dataObjects\Quiz::insert($this->pdo, $_POST['nom'], $_POST['description']);
             echo "Quiz créé!";
+            echo "<a href='index.php'>Retour à l'accueil</a>";
         } else {
             $this->renderCreateQuizForm($state);
         }
