@@ -14,6 +14,9 @@ include_once __DIR__ . "/../provider/provider.php";
     <div>
         <a href="classement.php">lien vers le classement</a>
     </div>
+    <div>
+        <a href="creerQuiz.php">lien vers la création d'un quiz</a>
+    </div>
     <p>Voici la liste des quiz disponibles:</p>
     <ul>
         <?php

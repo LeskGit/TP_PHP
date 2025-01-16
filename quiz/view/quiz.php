@@ -55,7 +55,9 @@ include_once __DIR__ . "/../classes/Formulaire.php";
     // Vérifier si l'ID est passé dans l'URL
     if (isset($_GET['id'])) {
         $id = $_GET['id'];  // Récupère l'ID du quiz depuis l'URL
-
+        // lien vers la création d'une question
+        echo "<div><a href='creerQuestion.php?id=" . $id . "'>Créer une question</a><div/>";
+        // Affiche le formulaire
         Formulaire::afficheFormulaire($pdo, $id);
     } else {
         echo "<p>Aucun quiz sélectionné.</p>";
