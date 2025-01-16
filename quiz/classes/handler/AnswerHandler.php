@@ -3,12 +3,21 @@ namespace handler;
 
 use dataObjects\Question;
 
+/**
+ * Classe permettant de gérer les réponse soumis aux question du quiz + afficahge et score
+ */
 class AnswerHandler {
 
     // Variables globales pour le score total et le score utilisateur
     private static $totalScore = 0;
     private static $userScore = 0;
 
+    /**
+     * @param $pdo
+     * @param array $resultat
+     * @param $idQuiz
+     * @return string
+     */
     public static function render($pdo, array $resultat, $idQuiz) {
         $html = '';
 
@@ -17,6 +26,7 @@ class AnswerHandler {
 
         $html .= '<ul class="list-group">';
 
+        // On gère les questions une par une selon leurs types
         foreach ($questions as $question) {
             switch ($question['type']) {
                 case 'text':
@@ -51,6 +61,12 @@ class AnswerHandler {
         return $html;
     }
 
+    /**
+     * @param $pdo
+     * @param $question
+     * @param $resultat
+     * @return string
+     */
     private static function textHandler($pdo, $question, $resultat) {
         $html = "<li class='list-group-item mb-3'><strong>" . htmlspecialchars($question['question']) . " :</strong> ";
         $reponse = isset($resultat[$question['id']]) ? $resultat[$question['id']] : '';
@@ -72,6 +88,12 @@ class AnswerHandler {
         return $html;
     }
 
+    /**
+     * @param $pdo
+     * @param $question
+     * @param $resultat
+     * @return string
+     */
     private static function radioHandler($pdo, $question, $resultat) {
         $html = "<li class='list-group-item mb-3'><strong>" . htmlspecialchars($question['question']) . " :</strong> ";
         $reponse_id = isset($resultat[$question['id']]) ? $resultat[$question['id']] : '';
@@ -79,6 +101,8 @@ class AnswerHandler {
         $reponse = $temp[0]["reponse"];
 
         $correctAnswers = Question::selectCorrectRespones($pdo, $question['id']);
+
+        // Une seule réponse possible car radio (on vérifie sans passer par un foreach)
         if ($reponse_id && in_array($reponse_id, array_column($correctAnswers, 'id'))) {
             self::$userScore += $question['score'];
             $html .= "<div class='alert alert-success'>" . htmlspecialchars($reponse) . "</div>";
@@ -93,6 +117,12 @@ class AnswerHandler {
         return $html;
     }
 
+    /**
+     * @param $pdo
+     * @param $question
+     * @param $resultat
+     * @return string
+     */
     private static function checkboxHandler($pdo, $question, $resultat) {
         $html = "<li class='list-group-item mb-3'><strong>" . htmlspecialchars($question['question']) . " :</strong> ";
 
@@ -104,6 +134,8 @@ class AnswerHandler {
 
         $reponse_ids = isset($resultat[$question['id']]) ? $resultat[$question['id']] : [];
         $selectionAnswers = [];
+
+        // Permet d'avoir les réponses soumise en clair (pas dans une liste de liste)
         foreach ($reponse_ids as $reponse_id) {
             $temp = Question::selectResponseById($pdo, $question['id'], $reponse_id);
             if (!empty($temp)) {
@@ -115,6 +147,7 @@ class AnswerHandler {
         $nb_reponse_correct = count($correctAnswers);
         $nb_reponse_coherente = 0;
 
+        // Vérification des réponse soumise par rapport aux bonne réponse
         foreach ($selectionAnswers as $selectionAnswer) {
             if (in_array($selectionAnswer['id'], $correctAnswerIds)) {
                 $nb_reponse_coherente++;

@@ -1,5 +1,5 @@
 <?php
-
+// page pour gérer la redirection et l'ajout de la participation à la BD
 use handler\QuizHandler;
 include_once __DIR__ . "/../provider/provider.php";
 include_once __DIR__ . "/../classes/handler/QuizHandler.php";

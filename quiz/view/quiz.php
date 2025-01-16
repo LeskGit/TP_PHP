@@ -50,7 +50,7 @@ include_once __DIR__ . "/../classes/handler/QuizHandler.php";
 <!-- Section principale -->
 <main class="container mt-4">
     <?php
-
+    // On vérif si on a bien récuperer l'ID
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
         // lien vers la création d'une question
