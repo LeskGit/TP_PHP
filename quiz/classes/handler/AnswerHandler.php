@@ -44,7 +44,7 @@ class AnswerHandler {
 
         // Validation de la réponse
         $correctAnswers = Question::selectCorrectRespones($pdo, $question['id']);
-        if ($reponse && in_array($reponse, array_column($correctAnswers, 'reponse'))) {
+        if ($reponse && strcasecmp($correctAnswers[0]["reponse"], $reponse) == 0) {
             self::$userScore += $question['score'];
             $html .= "<div class='alert alert-success'>" . htmlspecialchars($reponse) . "</div>";
         } else {
@@ -52,6 +52,8 @@ class AnswerHandler {
         }
 
         $html .= "</li>";
+
+        $html .= "<p>" . 'La bonne réponse était : ' . '<strong>' . htmlspecialchars($correctAnswers[0]["reponse"]) . '</strong>' . "</p>";
         self::$totalScore += $question['score'];
 
         return $html;
@@ -60,16 +62,19 @@ class AnswerHandler {
     private static function radioHandler($pdo, $question, $resultat) {
         $html = "<li class='list-group-item mb-3'><strong>" . htmlspecialchars($question['question']) . " :</strong> ";
         $reponse_id = isset($resultat[$question['id']]) ? $resultat[$question['id']] : '';
+        $temp = Question::selectResponseById($pdo, $question['id'], $reponse_id);
+        $reponse = $temp[0]["reponse"];
 
         $correctAnswers = Question::selectCorrectRespones($pdo, $question['id']);
         if ($reponse_id && in_array($reponse_id, array_column($correctAnswers, 'id'))) {
             self::$userScore += $question['score'];
-            $html .= "<div class='alert alert-success'>" . htmlspecialchars($reponse_id) . "</div>";
+            $html .= "<div class='alert alert-success'>" . htmlspecialchars($reponse) . "</div>";
         } else {
-            $html .= "<div class='alert alert-danger'>" . htmlspecialchars($reponse_id) . "</div>";
+            $html .= "<div class='alert alert-danger'>" . htmlspecialchars($reponse) . "</div>";
         }
 
         $html .= "</li>";
+        $html .= "<p>" . 'La bonne réponse était : ' . '<strong>' . htmlspecialchars($correctAnswers[0]["reponse"]) . '</strong>' . "</p>";
         self::$totalScore += $question['score'];
 
         return $html;

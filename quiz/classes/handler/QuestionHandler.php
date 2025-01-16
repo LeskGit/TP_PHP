@@ -40,7 +40,7 @@ class QuestionHandler {
 
     public static function textHandler($pdo, $question): string {
         $html = '<div class="form-group mb-4">';
-        $html .= '<label for="question_' . $question['id'] . '" class="form-label"><h5>' . htmlspecialchars($question['question']) . '</h5></label>';
+        $html .= '<label for="' . $question['id'] . '" class="form-label"><h5>' . htmlspecialchars($question['question']) . '</h5></label>';
         $html .= '<input type="text" name="' . $question['id'] . '" id="' . $question['id'] . '" class="form-control" placeholder="Votre réponse">';
         $html .= '</div>';
         return $html;
@@ -53,7 +53,7 @@ class QuestionHandler {
         foreach ($choices as $choice) {
             $html .= '<div class="form-check">';
             $html .= '<input class="form-check-input" type="radio" name="' . $question['id'] . '" id="' . $choice['id'] . '" value="' . $choice['id'] . '">';
-            $html .= '<label class="form-check-label" for="choice_' . $choice['id'] . '">' . htmlspecialchars($choice['reponse']) . '</label>';
+            $html .= '<label class="form-check-label" for="' . $choice['id'] . '">' . htmlspecialchars($choice['reponse']) . '</label>';
             $html .= '</div>';
         }
         $html .= '</div>';
