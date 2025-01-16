@@ -5,8 +5,10 @@ namespace dataObjects;
 
 class Quiz {
 
-    public static function insert($pdo, $id, $nom, $description){
+    public static function insert($pdo, $nom, $description){
         // insertion d'un quiz
+        $query = $pdo->query("SELECT MAX(id) as id FROM QUIZ");
+        $id = $query->fetch()['id'] + 1;
         $query = $pdo->prepare("INSERT INTO QUIZ (id, nom, description) VALUES (:id, :nom, :description)");
         $query->execute([
             'id' => $id,

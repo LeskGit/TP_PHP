@@ -10,13 +10,13 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Création d'une question</title>
+    <title>Création d'un quiz</title>
 </head>
 <body>
-    <p>Création d'une question</p>
+    <p>Création d'un quiz</p>
     <?php
-    $questionFactory = new creation\QuestionFactory($pdo);
-    $questionFactory->createQuestion();
+    $quizFactory = new creation\QuizFactory($pdo);
+    $quizFactory->createQuiz();
     ?>
 </body>
 </html>
