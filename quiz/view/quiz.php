@@ -53,6 +53,8 @@ include_once __DIR__ . "/../classes/handler/QuizHandler.php";
 
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
+        // lien vers la création d'une question
+        echo "<div><a href='creerQuestion.php?id=" . $id . "'>Créer une question</a><div/>";
 
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -62,6 +64,8 @@ include_once __DIR__ . "/../classes/handler/QuizHandler.php";
             // Si la méthode est GET, afficher le formulaire
             QuizHandler::afficheFormulaire($pdo, $id);
         }
+    // Vérifier si l'ID est passé dans l'URL
+
     } else {
         echo "<p>Aucun quiz sélectionné.</p>";
     }

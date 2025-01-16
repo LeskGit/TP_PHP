@@ -3,8 +3,10 @@
 namespace dataObjects;
 
 class Question {
-    public static function insert($pdo, $id, $question, $type, $score, $quiz_id){
-        // inssertion d'une question
+    public static function insert($pdo, $question, $type, $score, $quiz_id){
+        // inssertion d'une question*
+        $query = $pdo->query("SELECT MAX(id) as id FROM QUESTION");
+        $id = $query->fetch()['id'] + 1;
         $query = $pdo->prepare("INSERT INTO QUESTION (id, question, type, score, quiz_id) VALUES (:id, :question, :type, :score, :quiz_id)");
         $query->execute([
             'id' => $id,
@@ -13,6 +15,7 @@ class Question {
             'score' => $score,
             'quiz_id' => $quiz_id
         ]);
+        return $id;
     }
 
     public static function insertAll($pdo, $questions){
@@ -101,9 +104,12 @@ class Question {
         return $query->fetchAll();
     }
 
-    public static function insertResponse($pdo, $id, $reponse, $isCorrect, $question_id){
+
+    public static function insertResponse($pdo, $reponse, $isCorrect, $question_id){
         // insertion d'une réponse
-        $query = $pdo->prepare("INSERT INTO REPONSE (id, reponse, isCorrect, question_id) VALUES (:id, :reponse, :isCorrect, :question_id)");
+        $query = $pdo->query("SELECT MAX(id) as id FROM REPONSE");
+        $id = $query->fetch()['id'] + 1;
+        $query = $pdo->prepare("INSERT INTO REPONSE (id, reponse, correct, question_id) VALUES (:id, :reponse, :isCorrect, :question_id)");
         $query->execute([
             'id' => $id,
             'reponse' => $reponse,
