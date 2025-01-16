@@ -4,16 +4,16 @@ namespace dataObjects;
 
 class Participation{
 
-    public static function insert($pdo, $id, $pseudo, $score, $quiz_id){
-        // inssertion d'une participation
-        $query = $pdo->prepare("INSERT INTO PARTICIPATION (id, pseudo, score, quiz_id) VALUES (:id, :pseudo, :score, :quiz_id)");
+    public static function insert($pdo, $pseudo, $score, $quiz_id){
+        // Insertion d'une participation
+        $query = $pdo->prepare("INSERT INTO PARTICIPATION (pseudo, score, quiz_id) VALUES (:pseudo, :score, :quiz_id)");
         $query->execute([
-            'id' => $id,
             'pseudo' => $pseudo,
             'score' => $score,
             'quiz_id' => $quiz_id
         ]);
     }
+
 
     public static function update($pdo, $id, $pseudo, $score, $quiz_id){
         // mise à jour d'une participation

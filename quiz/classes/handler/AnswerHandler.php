@@ -31,10 +31,23 @@ class AnswerHandler {
             }
         }
 
+
         $html .= '</ul>';
 
         $html .= "<h5 class='mt-4'>Score de l'utilisateur : " . round(self::$userScore) . " / " . self::$totalScore . "</h5>";
 
+        // Ajout du formulaire pour l'enregistrement
+        $html .= '<form class="mt-4" method="post" action="save_participation.php">';
+            $html .= '<div class="form-group">';
+                $html .= '<label for="pseudo">Votre pseudo :</label>';
+                $html .= '<input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="Entrez votre pseudo" required>';
+                $html .= '</div>';
+                $html .= '<div class="form-check">';
+            $html .= '</div>';
+            $html .= '<input type="hidden" name="idQuiz" value="' . htmlspecialchars($idQuiz) . '">';
+            $html .= '<input type="hidden" name="score" value="' . htmlspecialchars(round(self::$userScore)) . '">';
+            $html .= '<button type="submit" class="btn btn-primary mt-3">Soumettre</button>';
+        $html .= '</form>';
         return $html;
     }
 
