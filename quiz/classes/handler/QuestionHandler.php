@@ -4,7 +4,7 @@ namespace handler;
 use dataObjects\Question;
 
 /**
- * Classe permettant de gérer tous les types de questions
+ * Classe permet de gérer tous les types de questions et leurs affichages par rapport au quiz id donner (_GET)
  */
 
 class QuestionHandler {
@@ -12,12 +12,14 @@ class QuestionHandler {
     /**
      * Génère le HTML de la question
      *
-     * @param array $question La question à afficher
+     * @param array $question Les questions à afficher
      * @return string Le code HTML de la question
      */
     public static function render($pdo, array $questions) {
+        // Affiche toutes les questions correspondant au quiz selectionné
         $html = '';
         $html .= '<form class="form-container" method="POST">';
+        // Pour chaque question, selon le type, on le donne au handler correspondant
         foreach ($questions as $question) {
             switch ($question['type']) {
                 case 'text':
@@ -37,8 +39,13 @@ class QuestionHandler {
         $html .= '</form>';
         return $html;
     }
-
+    /**
+     * @param $pdo
+     * @param $question
+     * @return string
+     */
     public static function textHandler($pdo, $question): string {
+        // Gere les question de type TextInput avec une seule reponse possible
         $html = '<div class="form-group mb-4">';
         $html .= '<label for="' . $question['id'] . '" class="form-label"><h5>' . htmlspecialchars($question['question']) . '</h5></label>';
         $html .= '<input type="text" name="' . $question['id'] . '" id="' . $question['id'] . '" class="form-control" placeholder="Votre réponse">';
@@ -46,7 +53,13 @@ class QuestionHandler {
         return $html;
     }
 
+    /**
+     * @param $pdo
+     * @param $question
+     * @return string
+     */
     public static function radioHandler($pdo, $question): string {
+        // Gere les question de type checkBox ou une seule reponse est possible
         $choices = Question::selectResponses($pdo, $question['id']);
         $html = '<div class="form-group mb-4">';
         $html .= '<h5>' . htmlspecialchars($question['question']) . '</h5>';
@@ -60,7 +73,13 @@ class QuestionHandler {
         return $html;
     }
 
+    /**
+     * @param $pdo
+     * @param $question
+     * @return string
+     */
     public static function checkboxHandler($pdo, $question): string {
+        // Gere les question de type checkBox ou plusieurs reponse sont possible
         $choices = Question::selectResponses($pdo, $question['id']);
         $html = '<div class="form-group mb-4">';
         $html .= '<h5>' . htmlspecialchars($question['question']) . '</h5>';
