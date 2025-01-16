@@ -1,6 +1,6 @@
 <?php
 namespace creation;
-
+// cette classe gère la création de question
 class QuestionFactory {
     private $pdo;
 
@@ -8,11 +8,17 @@ class QuestionFactory {
         $this->pdo = $pdo;
     }
 
+    /**
+     * construction d'un formulaire de création de question
+     */
     public function createQuestion(){
         $state = $_POST['state'] ?? 'init';
         $this->renderCreateQuestionForm($state);
     }
 
+    /**
+     * rendu du formulaire de création de question en fonction de l'état actuel
+     */
     private function renderCreateQuestionForm($state){
         switch($state){
             case 'init':
@@ -28,6 +34,9 @@ class QuestionFactory {
         }
     }
 
+    /**
+     * rendu du formulaire de création de question initial
+     */
     private function renderCreateQuestionFormInit(){
         echo "<form method='post'>";
         echo "<label for='question'>Question:</label>";
@@ -45,6 +54,9 @@ class QuestionFactory {
         echo "</form>";
     }
 
+    /**
+     * sauvegarde de la question
+     */
     private function saveQuestion(){
         $question = $_POST['question'];
         $type = $_POST['type'];
@@ -55,6 +67,9 @@ class QuestionFactory {
         echo "Question créée!";
     }
 
+    /**
+     * rendu du formulaire de création de réponse
+     */
     private function renderCreateResponseForm(){
         echo "<form method='post'>";
         switch ($_POST['type']){
@@ -75,6 +90,9 @@ class QuestionFactory {
         echo "</form>";
     }
 
+    /**
+     * sauvegarde de la réponse en fonction de l'état
+     */
     private function saveResponse(){
         switch ($_POST['type']){
             case 'text':
@@ -89,11 +107,17 @@ class QuestionFactory {
         }
     }
 
+    /**
+     * rendu du formulaire de création de réponse de type texte
+     */
     private function renderCreateResponseFormText(){
         echo "<label for='response'>Réponse:</label>";
         echo "<input type='text' name='response' id='response'>";
     }
 
+    /**
+     * sauvegarde de la réponse de type texte
+     */
     private function saveTextReponse(){
         $response = $_POST['response'];
         $question_id = $_POST['question_id'];
@@ -101,6 +125,9 @@ class QuestionFactory {
         echo "Réponse créée!";
     }
 
+    /**
+     * rendu du formulaire de création de réponse de type radio
+     */
     private function renderCreateResponseFormRadio(){
         for ($i = 0; $i < 4; $i++){
             echo "<div>";
@@ -112,6 +139,9 @@ class QuestionFactory {
         }
     }
 
+    /**
+     * sauvegarde de la réponse de type radio
+     */
     private function saveRadioReponse(){
         $question_id = $_POST['question_id'];
         for ($i = 0; $i < 4; $i++){
@@ -122,6 +152,9 @@ class QuestionFactory {
         echo "Réponses créées!";
     }
 
+    /**
+     * rendu du formulaire de création de réponse de type checkbox
+     */
     private function renderCreateResponseFormCheckbox(){
         for ($i = 0; $i < 4; $i++){
             echo "<div>";
@@ -133,6 +166,9 @@ class QuestionFactory {
         }
     }
 
+    /**
+     * sauvegarde de la réponse de type checkbox
+     */
     private function saveCheckboxReponse(){
         $question_id = $_POST['question_id'];
         for ($i = 0; $i < 4; $i++){
