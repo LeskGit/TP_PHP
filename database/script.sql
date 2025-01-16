@@ -1,5 +1,5 @@
 CREATE TABLE PARTICIPATION (
-    id INT PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
     pseudo VARCHAR(255) NOT NULL,
     score INT,
     quiz_id INT,

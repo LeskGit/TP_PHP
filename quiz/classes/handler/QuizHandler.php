@@ -3,8 +3,11 @@ namespace handler;
 use \dataObjects\Question;
 use \handler\QuestionHandler;
 use \handler\AnswerHandler;
+use \dataObjects\Participation;
+use PDOException;
 
 include_once __DIR__ . "/../dataObjects/Question.php";
+include_once __DIR__ . "/../dataObjects/Participation.php";
 include_once __DIR__ . "/QuestionHandler.php";
 include_once __DIR__ . "/AnswerHandler.php";
 
@@ -41,5 +44,16 @@ class QuizHandler {
         $html .= $correction;
         echo $html;
     }
+
+    public static function createParticipation($pdo, $idQuiz, $score, $pseudo) {
+        try {
+            Participation::insert($pdo, $pseudo, $score, $idQuiz);
+            echo "Mis a jour du classement effectué avec succès.";
+        } catch (PDOException $e) {
+            error_log("Erreur lors de la création de la participation : " . $e->getMessage());
+            echo "Une erreur est survenue lors de la création de la participation.";
+        }
+    }
+
 
 }
